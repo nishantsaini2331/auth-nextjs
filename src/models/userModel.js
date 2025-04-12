@@ -25,7 +25,7 @@ const userSchema = new Schema({
   },
   forgotPasswordToken: String,
   forgotPasswordExpiry: Date,
-  veriyToken: String,
+  verifyToken: String,
   verifyTokenExpiry: Date,
 });
 
