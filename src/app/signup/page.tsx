@@ -22,9 +22,14 @@ export default function SignupPage() {
         alert(res.data.message);
         router.push("/login");
       }
-    } catch (error: any) {
-      console.log(error);
-      alert(error.response.data.error);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.log("Axios error:", error.response?.data || error.message);
+      } else if (error instanceof Error) {
+        console.log("Generic error:", error.message);
+      } else {
+        console.log("Unknown error while fetching user details.");
+      }
     } finally {
       setLoading(false);
     }

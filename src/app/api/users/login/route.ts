@@ -56,10 +56,13 @@ export async function POST(request: NextRequest) {
     });
 
     return response;
-  } catch (error: any) {
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
     return NextResponse.json(
-      { error: error.message, success: false },
-      { status: 500 }
+      { error: "An unknown error occurred" },
+      { status: 400 }
     );
   }
 }

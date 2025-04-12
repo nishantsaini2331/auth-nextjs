@@ -21,9 +21,14 @@ export default function LoginPage() {
         alert(res.data.message);
         router.push("/");
       }
-    } catch (error: any) {
-      console.log(error);
-      alert(error.response?.data?.error || "An error occurred");
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.log("Axios error:", error.response?.data || error.message);
+      } else if (error instanceof Error) {
+        console.log("Generic error:", error.message);
+      } else {
+        console.log("Unknown error while fetching user details.");
+      }
     } finally {
       setLoading(false);
     }
